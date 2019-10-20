@@ -24,11 +24,10 @@ export default class App extends Component {
 
   // Q2: we have 6 errors here please fix them [6 pt]
   addTodoItem = newTask => {
-    axios
-      .get('getTasks')
+    axios.post(`http:localhost9000/tasks`, newTask)
       .then(res => {
         const result = res;
-        this.state.tasks = result;
+        this.setState({tasks : result.data});
       })
       .catch(error => {
         console.log(error);
@@ -36,11 +35,10 @@ export default class App extends Component {
   };
 
   toggleComplete = id => {
-    axios
-      .put(`http://localhost:9000/toggleTask/${id}`)
+    axios.put(`http://localhost:9000/toggleTask/${id}`)
       .then(res => {
         const tasks = res.data;
-        this.setState({ tasks });
+        this.setState({ tasks : tasks });
       })
       .catch(error => {
         console.log(error);
@@ -52,7 +50,7 @@ export default class App extends Component {
       .delete(`http://localhost:9000/tasks/${id}`)
       .then(res => {
         const tasks = res.data;
-        this.setState({ tasks });
+        this.setState({ tasks: tasks });
       })
       .catch(error => {
         console.log(error);
